@@ -1,34 +1,28 @@
-require "pry" 
-# code here!
+require 'pry'
 class School
-        # take in, read, write
-    attr_accessor :roster
-        # giving the instance of my school some default information with the initialize method.
-      def initialize(roster) 
-        #the roster.length = 0 
-        @roster = {}       
-      end
+    attr_accessor :name, :roster
+  def initialize(name)
+    @roster = Hash.new
+  end
 
-      def add_student(student_name, grade)
-        @roster.key?(grade) ? @roster[grade] << student_name : @roster.merge!(grade => [student_name])
-        # binding.pry
-      end    
+  def add_student(name,grade)
+    if @roster[grade] != nil
+    @roster[grade] << name
+    else
+      @roster["#{grade}".to_i] = [] << name
+    end
+  end
 
-      def grade(grade)
-        @roster[grade] if @roster.has_key?(grade)          
-      end
+  def grade(grade)
+    @roster[grade]
+  end
 
-      def sort
-        @roster.each do |grade,student_names|
-         student_names.sort!
-        # binding.pry
-        end
-    
-      end
+  def sort
+    @roster.each do |grade|
+      sort = grade[1].sort 
+      # binding.pry
+      @roster[grade[0]] = sort
+    end
+  end
 
-
-  
 end
-
-
-# bracket = method ---ruby will create a new key value in the hash if key is not present
